@@ -6,6 +6,7 @@ import {
 } from "y/server/api/trpc";
 
 import { todoInput } from '../../../types';
+import { TRPCError } from '@trpc/server';
 
 export const todoRouter = createTRPCRouter({
 
@@ -23,6 +24,7 @@ export const todoRouter = createTRPCRouter({
   create: protectedProcedure.
     input(todoInput)
     .mutation(async ({ ctx, input }) => {
+      // throw new TRPCError({ code: "INTERNAL_SERVER_ERROR" });
       return ctx.prisma.todo.create({
         data: {
           text: input,
